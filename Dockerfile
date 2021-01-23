@@ -151,6 +151,8 @@ RUN sleep 91                                          \
 	--disable-shared                                     \
 	--enable-static                                      \
 	--enable-assembly                                    \
+        --with-curl=$PREFIX                                  \
+        --with-crypto=$PREFIX                                \
 	CPPFLAGS="$CPPFLAGS -DCURL_STATICLIB"                \
 	CXXFLAGS="$CXXFLAGS"                                 \
 	CFLAGS="$CFLAGS"                                     \
