@@ -133,7 +133,7 @@ RUN sleep 91                                          \
         AR="$AR"                                      \
         RANLIB="$RANLIB"                              \
         STRIP="$STRIP"                                \
-        LIBS=-lgcov                                   \
+        LIBS='-lgcov -lz -lcrypto -lssl'              \
  && make -j$(nproc)                                   \
  && make install                                      \
  && git reset --hard                                  \
@@ -172,7 +172,7 @@ RUN sleep 91                                          \
         AR="$AR"                                             \
         RANLIB="$RANLIB"                                     \
         STRIP="$STRIP"                                       \
-        LIBS=-lgcov                                          \
+        LIBS='-lgcov -lz -lcrypto -lssl -lcurl -ljansson'    \
  && cd $PREFIX                                               \
  && rm -rf etc man share ssl
 
