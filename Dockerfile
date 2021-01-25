@@ -133,7 +133,6 @@ RUN sleep 91                                          \
         AR="$AR"                                      \
         RANLIB="$RANLIB"                              \
         STRIP="$STRIP"                                \
-        LIBS='-lgcov -lz -lcrypto -lssl'              \
  && make -j$(nproc)                                   \
  && make install                                      \
  && git reset --hard                                  \
