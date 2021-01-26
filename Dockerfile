@@ -171,7 +171,6 @@ RUN sleep 91                                          \
         AR="$AR"                                             \
         RANLIB="$RANLIB"                                     \
         STRIP="$STRIP"                                       \
-        LIBS='-lgcov -lz -lcrypto -lssl -lcurl -ljansson'    \
  && cd $PREFIX                                               \
  && rm -rf etc man share ssl
 
