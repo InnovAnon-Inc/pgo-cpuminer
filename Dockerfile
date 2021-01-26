@@ -140,6 +140,9 @@ RUN sleep 91                                          \
  && git clean -fdx                                    \
  && cd ..                                             \
  && rm -v $PREFIX/bin/*curl*                          \
+ \
+ && ls -ltra /usr/local/lib | grep libcrypto.a \
+ \
  && git clone --depth=1 --recursive                   \
       https://github.com/InnovAnon-Inc/cpuminer-yescrypt.git \
  && cd                                 cpuminer-yescrypt     \
