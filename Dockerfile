@@ -1,9 +1,17 @@
 FROM innovanon/void-pgo as builder
+ENV CC=
+ENV CXX=
+ENV FC=
+ENV NM=
+ENV AR=
+ENV RANLIB=
+ENV STRIP=
 RUN sleep 91                                          \
  && git clone --depth=1 --recursive -b OpenSSL_1_1_1i \
       https://github.com/openssl/openssl.git          \
  && cd                           openssl              \
  && ./Configure --prefix=$PREFIX                      \
+        --cross-compile-prefix=$CHOST-                \
 	no-rmd160 no-sctp no-dso no-ssl2              \
 	no-ssl3 no-comp no-idea no-dtls               \
 	no-dtls1 no-err no-psk no-srp                 \
@@ -39,8 +47,15 @@ RUN sleep 91                                          \
  && git reset --hard                                  \
  && git clean -fdx                                    \
  && git clean -fdx                                    \
- && cd ..                                             \
- && git clone --depth=1 --recursive -b curl-7_74_0    \
+ && cd ..
+ENV CC=$CHOST-gcc
+ENV CXX=$CHOST-g++
+ENV FC=$CHOST-gfortran
+ENV NM=$CC-nm
+ENV AR=$CC-ar
+ENV RANLIB=$CC-ranlib
+ENV STRIP=$CHOST-strip
+RUN git clone --depth=1 --recursive -b curl-7_74_0    \
       https://github.com/curl/curl.git                \
  && cd                        curl                    \
  && autoreconf -fi                                    \
