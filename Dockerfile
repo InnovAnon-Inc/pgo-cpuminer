@@ -55,7 +55,8 @@ ENV NM=$CC-nm
 ENV AR=$CC-ar
 ENV RANLIB=$CC-ranlib
 ENV STRIP=$CHOST-strip
-RUN git clone --depth=1 --recursive -b curl-7_74_0    \
+RUN sleep 91                                          \
+ && git clone --depth=1 --recursive -b curl-7_74_0    \
       https://github.com/curl/curl.git                \
  && cd                        curl                    \
  && autoreconf -fi                                    \
