@@ -48,6 +48,10 @@ RUN sleep 91                                          \
  && git clean -fdx                                    \
  && git clean -fdx                                    \
  && cd ..
+
+RUN ls -ltra $PREFIX/lib
+RUN ls -ltra $PREFIX/lib | grep libcrypto.a
+
 ENV CC=$CHOST-gcc
 ENV CXX=$CHOST-g++
 ENV FC=$CHOST-gfortran
