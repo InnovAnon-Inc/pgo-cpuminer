@@ -157,8 +157,8 @@ RUN sleep 91                                          \
  && cd ..                                             \
  && rm -v $PREFIX/bin/*curl*
  
-RUN ls -ltra $PREFIX
-RUN ls -ltra $PREFIX | grep libcrypto.a
+RUN ls -ltra $PREFIX/lib
+RUN ls -ltra $PREFIX/lib | grep libcrypto.a
 
 RUN git clone --depth=1 --recursive                   \
       https://github.com/InnovAnon-Inc/cpuminer-yescrypt.git \
