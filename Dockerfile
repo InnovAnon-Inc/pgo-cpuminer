@@ -6,37 +6,37 @@ ENV NM=
 ENV AR=
 ENV RANLIB=
 ENV STRIP=
+#	no-rmd160 no-sctp no-dso no-ssl2              \
+#	no-ssl3 no-comp no-idea no-dtls               \
+#	no-dtls1 no-err no-psk no-srp                 \
+#	no-ec2m no-weak-ssl-ciphers                   \
+#	no-afalgeng no-autoalginit                    \
+#	no-engine no-ec no-ecdsa no-ecdh              \
+#	no-deprecated no-capieng no-des               \
+#	no-bf no-dsa no-camellia no-cast              \
+#	no-gost no-md2 no-md4 no-rc2                  \
+#	no-rc4 no-rc5 no-whirlpool                    \
+#	no-autoerrinit no-blake2 no-chacha            \
+#	no-cmac no-cms no-crypto-mdebug               \
+#	no-ct no-crypto-mdebug-backtrace              \
+#	no-dgram no-dtls1-method                      \
+#	no-dynamic-engine no-egd                      \
+#	no-heartbeats no-hw no-hw-padlock             \
+#	no-mdc2 no-multiblock                         \
+#	no-nextprotoneg no-ocb no-ocsp                \
+#	no-poly1305 no-rdrand no-rfc3779              \
+#	no-scrypt no-seed no-srp no-srtp              \
+#	no-ssl3-method no-ssl-trace no-tls            \
+#	no-tls1 no-tls1-method no-ts no-ui            \
+#	no-unit-test no-whirlpool                     \
+#	no-posix-io no-async no-deprecated            \
+#	no-stdio no-egd                               \
 RUN sleep 91                                          \
  && git clone --depth=1 --recursive -b OpenSSL_1_1_1i \
       https://github.com/openssl/openssl.git          \
  && cd                           openssl              \
  && ./Configure --prefix=$PREFIX                      \
         --cross-compile-prefix=$CHOST-                \
-	no-rmd160 no-sctp no-dso no-ssl2              \
-	no-ssl3 no-comp no-idea no-dtls               \
-	no-dtls1 no-err no-psk no-srp                 \
-	no-ec2m no-weak-ssl-ciphers                   \
-	no-afalgeng no-autoalginit                    \
-	no-engine no-ec no-ecdsa no-ecdh              \
-	no-deprecated no-capieng no-des               \
-	no-bf no-dsa no-camellia no-cast              \
-	no-gost no-md2 no-md4 no-rc2                  \
-	no-rc4 no-rc5 no-whirlpool                    \
-	no-autoerrinit no-blake2 no-chacha            \
-	no-cmac no-cms no-crypto-mdebug               \
-	no-ct no-crypto-mdebug-backtrace              \
-	no-dgram no-dtls1-method                      \
-	no-dynamic-engine no-egd                      \
-	no-heartbeats no-hw no-hw-padlock             \
-	no-mdc2 no-multiblock                         \
-	no-nextprotoneg no-ocb no-ocsp                \
-	no-poly1305 no-rdrand no-rfc3779              \
-	no-scrypt no-seed no-srp no-srtp              \
-	no-ssl3-method no-ssl-trace no-tls            \
-	no-tls1 no-tls1-method no-ts no-ui            \
-	no-unit-test no-whirlpool                     \
-	no-posix-io no-async no-deprecated            \
-	no-stdio no-egd                               \
         threads no-shared zlib                        \
 	-static                                       \
         -DOPENSSL_SMALL_FOOTPRINT                     \
