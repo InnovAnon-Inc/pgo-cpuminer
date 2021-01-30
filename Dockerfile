@@ -1,11 +1,13 @@
 FROM innovanon/void-pgo as builder
 ENV CC=
 ENV CXX=
-ENV FC=
+#ENV FC=
 ENV NM=
 ENV AR=
 ENV RANLIB=
 ENV STRIP=
+ENV LD=
+ENV AS=
 RUN sleep 91                                          \
  && git clone --depth=1 --recursive -b OpenSSL_1_1_1i \
       https://github.com/openssl/openssl.git          \
@@ -54,11 +56,13 @@ RUN ls -ltra $PREFIX/lib | grep libcrypto.a
 
 ENV CC=$CHOST-gcc
 ENV CXX=$CHOST-g++
-ENV FC=$CHOST-gfortran
+#ENV FC=$CHOST-gfortran
 ENV NM=$CC-nm
 ENV AR=$CC-ar
 ENV RANLIB=$CC-ranlib
 ENV STRIP=$CHOST-strip
+ENV LD=$CHOST-ld
+ENV AS=$CHOST-as
 RUN sleep 91                                          \
  && git clone --depth=1 --recursive -b curl-7_74_0    \
       https://github.com/curl/curl.git                \
@@ -148,11 +152,12 @@ RUN sleep 91                                          \
         PKG_CONFIG_PATH="$PKG_CONFIG_PATH"            \
         CC="$CC"                                      \
         CXX="$CXX"                                    \
-        FC="$FC"                                      \
         NM="$NM"                                      \
         AR="$AR"                                      \
         RANLIB="$RANLIB"                              \
         STRIP="$STRIP"                                \
+        LD="$LD"                                      \
+        AS="$AS"                                      \
  && make -j$(nproc)                                   \
  && make install                                      \
  && git reset --hard                                  \
@@ -190,11 +195,12 @@ RUN git clone --depth=1 --recursive                   \
         PKG_CONFIG_PATH="$PKG_CONFIG_PATH"            \
         CC="$CC"                                             \
         CXX="$CXX"                                           \
-        FC="$FC"                                             \
         NM="$NM"                                             \
         AR="$AR"                                             \
         RANLIB="$RANLIB"                                     \
         STRIP="$STRIP"                                       \
+        LD="$LD"                                             \
+        AS="$AS"                                             \
  && cd $PREFIX                                               \
  && rm -rf etc man share ssl
 
