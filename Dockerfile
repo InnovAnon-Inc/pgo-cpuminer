@@ -1,19 +1,19 @@
 FROM innovanon/void-pgo as builder
-ENV CC=
-ENV CXX=
-#ENV FC=
-ENV NM=
-ENV AR=
-ENV RANLIB=
-ENV STRIP=
-ENV LD=
-ENV AS=
+#ENV CC=
+#ENV CXX=
+##ENV FC=
+#ENV NM=
+#ENV AR=
+#ENV RANLIB=
+#ENV STRIP=
+#ENV LD=
+#ENV AS=
+        #--cross-compile-prefix=$CHOST-                \
 RUN sleep 91                                          \
  && git clone --depth=1 --recursive -b OpenSSL_1_1_1i \
       https://github.com/openssl/openssl.git          \
  && cd                           openssl              \
  && ./Configure --prefix=$PREFIX                      \
-        --cross-compile-prefix=$CHOST-                \
 	no-rmd160 no-sctp no-dso no-ssl2              \
 	no-ssl3 no-comp no-idea no-dtls               \
 	no-dtls1 no-err no-psk no-srp                 \
@@ -54,16 +54,26 @@ RUN sleep 91                                          \
 RUN ls -ltra $PREFIX/lib
 RUN ls -ltra $PREFIX/lib | grep libcrypto.a
 
-ENV CC=$CHOST-gcc
-ENV CXX=$CHOST-g++
-#ENV FC=$CHOST-gfortran
-ENV NM=$CC-nm
-ENV AR=$CC-ar
-ENV RANLIB=$CC-ranlib
-ENV STRIP=$CHOST-strip
-ENV LD=$CHOST-ld
-ENV AS=$CHOST-as
-RUN sleep 91                                          \
+#ENV CC=$CHOST-gcc
+#ENV CXX=$CHOST-g++
+##ENV FC=$CHOST-gfortran
+#ENV NM=$CC-nm
+#ENV AR=$CC-ar
+#ENV RANLIB=$CC-ranlib
+#ENV STRIP=$CHOST-strip
+#ENV LD=$CHOST-ld
+#ENV AS=$CHOST-as
+RUN command -v "$CC"                               \
+ && command -v "$CXX"                              \
+ && command -v "$NM"                               \
+ && command -v "$AR"                               \
+ && command -v "$RANLIB"                           \
+ && command -v "$STRIP"                            \
+ && command -v "$LD"                               \
+ && command -v "$AS"                               \
+ && test -n "$PREFIX"                              \
+ \
+ && sleep 91                                          \
  && git clone --depth=1 --recursive -b curl-7_74_0    \
       https://github.com/curl/curl.git                \
  && cd                        curl                    \
@@ -169,7 +179,8 @@ RUN sleep 91                                          \
 RUN ls -ltra $PREFIX/lib
 RUN ls -ltra $PREFIX/lib | grep libcrypto.a
 
-RUN git clone --depth=1 --recursive                   \
+RUN sleep 91 \
+ && git clone --depth=1 --recursive                   \
       https://github.com/InnovAnon-Inc/cpuminer-yescrypt.git \
  && cd                                 cpuminer-yescrypt     \
  && ./autogen.sh                                             \
